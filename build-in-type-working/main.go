@@ -1,47 +1,56 @@
 package main
 
-import (
-	"fmt"
+import "fmt"
 
-	"github.com/eiannone/keyboard"
-)
+//interface{} is a blank interface
 
-// aggregate types (pointer, slices,maps,function,go routine)
+type Animal interface {
+	Says() string
+	HowManyLegs() int
+}
 
-var keyPressChanel chan rune
+type Dog struct {
+	Name         string
+	Sound        string
+	NumberOfLegs int
+}
+
+func (d *Dog) Says() string {
+	return d.Sound
+}
+
+func (d *Dog) HowManyLegs() int {
+	return d.NumberOfLegs
+}
+
+func (d *Cat) Says() string {
+	return d.Sound
+}
+
+func (d *Cat) HowManyLegs() int {
+	return d.NumberOfLegs
+}
+
+type Cat struct {
+	Name         string
+	Sound        string
+	NumberOfLegs int
+	HasTail      bool
+}
 
 func main() {
 
-	keyPressChanel = make(chan rune)
-	go listenForKeyPress() // start listening for key presses in a go routine
-	fmt.Println("Press any key, or q to quit")
-	_ = keyboard.Open()
-	defer keyboard.Close()
-
-	for {
-		char, _, _ := keyboard.GetKey()
-		if char == 'q' || char == 'Q' {
-			break
-		}
-
-		keyPressChanel <- char
-	}
+	d := Dog{Name: "dog", Sound: "Woof", NumberOfLegs: 4}
+	Riddle(&d)
+	var cat Cat
+	cat.Name = "cat"
+	cat.Sound = "Meow"
+	cat.NumberOfLegs = 4
+	cat.HasTail = true
+	Riddle(&cat)
 }
 
-func listenForKeyPress() {
-	for {
-		key := <-keyPressChanel
-		fmt.Println("You pressed:", string(key))
-	}
+func Riddle(a Animal) {
+	riddle := fmt.Sprintf(`This is animal says "%s" and has %d legs.What animal is it?`, a.Says(), a.HowManyLegs())
+	fmt.Println(riddle)
 }
-
-// func doSomeThing(s string) {
-// 	until := 0
-// 	for {
-// 		fmt.Println("s is ", s)
-// 		until++
-// 		if until >= 5 {
-// 			break
-// 		}
-// 	}
-// }
