@@ -1,42 +1,47 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-// aggregate types (pointer, slices,maps,function)
+	"github.com/eiannone/keyboard"
+)
 
-type Animal struct {
-	name         string
-	sound        string
-	NumberOfLegs int
-}
+// aggregate types (pointer, slices,maps,function,go routine)
 
-func (a *Animal) Says() {
-	fmt.Printf("A %s says %s\n", a.name, a.sound)
-}
-
-func (a *Animal) HowManyLegs() {
-	fmt.Printf("A %s has %d legs\n", a.name, a.NumberOfLegs)
-}
+var keyPressChanel chan rune
 
 func main() {
 
-	moo := Animal{"cow", "moo", 4}
-	moo.Says()
-	moo.HowManyLegs()
-	bob := Animal{"bird", "tweet", 2}
-	bob.Says()
-	bob.HowManyLegs()
+	keyPressChanel = make(chan rune)
+	go listenForKeyPress() // start listening for key presses in a go routine
+	fmt.Println("Press any key, or q to quit")
+	_ = keyboard.Open()
+	defer keyboard.Close()
 
+	for {
+		char, _, _ := keyboard.GetKey()
+		if char == 'q' || char == 'Q' {
+			break
+		}
+
+		keyPressChanel <- char
+	}
 }
 
-// func addTwoNumber(a, b int) int {
-// 	return a + b
-// }
+func listenForKeyPress() {
+	for {
+		key := <-keyPressChanel
+		fmt.Println("You pressed:", string(key))
+	}
+}
 
-// func sumMany(nums ...int) int {
-// 	total := 0
-// 	for _, num := range nums {
-// 		total += num
+// func doSomeThing(s string) {
+// 	until := 0
+// 	for {
+// 		fmt.Println("s is ", s)
+// 		until++
+// 		if until >= 5 {
+// 			break
+// 		}
 // 	}
-// 	return total
 // }
