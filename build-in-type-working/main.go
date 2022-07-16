@@ -1,37 +1,42 @@
 package main
 
-// aggregate types (pointer, slices,maps)
+import "fmt"
+
+// aggregate types (pointer, slices,maps,function)
+
+type Animal struct {
+	name         string
+	sound        string
+	NumberOfLegs int
+}
+
+func (a *Animal) Says() {
+	fmt.Printf("A %s says %s\n", a.name, a.sound)
+}
+
+func (a *Animal) HowManyLegs() {
+	fmt.Printf("A %s has %d legs\n", a.name, a.NumberOfLegs)
+}
 
 func main() {
 
-	intMap := make(map[string]int)
+	moo := Animal{"cow", "moo", 4}
+	moo.Says()
+	moo.HowManyLegs()
+	bob := Animal{"bird", "tweet", 2}
+	bob.Says()
+	bob.HowManyLegs()
 
-	intMap["one"] = 1
-	intMap["two"] = 2
-	intMap["three"] = 3
-	intMap["four"] = 4
-	intMap["five"] = 5
-
-	for key, value := range intMap {
-		println(key, value)
-	}
-
-	delete(intMap, "three")
-
-	for key, value := range intMap {
-		println(key, value)
-	}
-
-	element, ok := intMap["four"] // element is zero value if key is not found in map and ok is false if key is not found in map and ok is true if key is found in map
-	if ok {
-		println(element)
-	} else {
-		println("key", element, "not found")
-	}
-
-	intMap["six"] = 6
-
-	for key, value := range intMap {
-		println(key, value)
-	}
 }
+
+// func addTwoNumber(a, b int) int {
+// 	return a + b
+// }
+
+// func sumMany(nums ...int) int {
+// 	total := 0
+// 	for _, num := range nums {
+// 		total += num
+// 	}
+// 	return total
+// }
