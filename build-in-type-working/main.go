@@ -1,43 +1,37 @@
 package main
 
-import (
-	"fmt"
-	"sort"
-)
-
-// aggregate types (pointer, slices)
+// aggregate types (pointer, slices,maps)
 
 func main() {
-	var animals []string
-	animals = append(animals, "dog")
-	animals = append(animals, "cat")
-	animals = append(animals, "bird")
-	animals = append(animals, "fish")
 
-	fmt.Println(animals)
+	intMap := make(map[string]int)
 
-	for i, x := range animals {
-		fmt.Println(x, i)
+	intMap["one"] = 1
+	intMap["two"] = 2
+	intMap["three"] = 3
+	intMap["four"] = 4
+	intMap["five"] = 5
+
+	for key, value := range intMap {
+		println(key, value)
 	}
 
-	fmt.Println(animals[1:3])
+	delete(intMap, "three")
 
-	fmt.Println(animals[:3])
+	for key, value := range intMap {
+		println(key, value)
+	}
 
-	fmt.Println(animals[3:])
+	element, ok := intMap["four"] // element is zero value if key is not found in map and ok is false if key is not found in map and ok is true if key is found in map
+	if ok {
+		println(element)
+	} else {
+		println("key", element, "not found")
+	}
 
-	fmt.Println("The slice is:", len(animals), "long")
+	intMap["six"] = 6
 
-	fmt.Println("Is it sorted?", sort.StringsAreSorted(animals))
-	fmt.Println(animals)
-
-	animals = DeleteFromSlice(animals, 1)
-	fmt.Println(animals)
-
-}
-func DeleteFromSlice(a []string, i int) []string {
-	a[i] = a[len(a)-1] //1 2 3 4 5
-	a[len(a)-1] = ""   //1 2 3 4 5
-	a = a[:len(a)-1]   //1 2 3 4
-	return a
+	for key, value := range intMap {
+		println(key, value)
+	}
 }
