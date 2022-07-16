@@ -2,23 +2,45 @@ package main
 
 import "fmt"
 
-//expression
+type Employee struct {
+	Name     string
+	Age      int
+	Salary   int
+	FullTime bool
+}
 
 func main() {
 
-	age := 10
-	name := "Jack"
-	rightHanded := true
+	jack := Employee{
+		Name:     "Jack Smith",
+		Age:      2,
+		Salary:   40000,
+		FullTime: false,
+	}
 
-	fmt.Printf("%s is %d years old.Right handed : %t\n", name, age, rightHanded)
+	jill := Employee{
+		Name:     "Jill Jones",
+		Age:      33,
+		Salary:   60000,
+		FullTime: true,
+	}
 
-	fmt.Println()
+	var employees []Employee
+	employees = append(employees, jack)
+	employees = append(employees, jill)
 
-	ageInTenYears := age + 10 // expression
+	for _, x := range employees {
+		if x.Age > 30 {
+			fmt.Println(x.Name, "is 30 or older")
+		} else {
+			fmt.Println(x.Name, "is under 30")
+		}
 
-	fmt.Printf("%s will be %d years old in 10 years.\n", name, ageInTenYears)
+		if x.Age > 30 && x.Salary > 5000 {
+			fmt.Println(x.Name, " make more than 50000 and is over 30")
+		} else {
+			fmt.Println(x.Name, " make less than 50000 and is under 30")
 
-	isATeenager := ageInTenYears >= 13 // expression
-
-	fmt.Printf("%s is a teenager : %t\n", name, isATeenager)
+		}
+	}
 }
