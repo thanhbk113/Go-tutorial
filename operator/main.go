@@ -1,15 +1,29 @@
 package main
 
+import (
+	"errors"
+	"fmt"
+)
+
 func main() {
 
-	//does one number divide exactly into another?
-	// x := 12
-	// y := 5
+	a := 12
+	b := 0
 
-	// if x%y == 0 {
-	// 	println(x, "divides evenly into", y)
-	// } else {
-	// 	println(x, "does not divide evenly into", y)
-	// }
+	c, err := divideTwoNumbers(a, b)
 
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("c:", c)
+	}
+
+}
+
+func divideTwoNumbers(a int, b int) (int, error) {
+
+	if b == 0 {
+		return 0, errors.New("division by zero")
+	}
+	return a / b, nil
 }
