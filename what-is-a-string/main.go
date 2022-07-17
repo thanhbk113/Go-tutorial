@@ -1,42 +1,28 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 )
 
 func main() {
-	// courses := []string{"Learn Go to Beginner", "Learn Go to Intermediate", "Learn Go to Advanced"}
+	str := "alpha alpha alpha alpha alpha alpha alpha alpha"
 
-	// for _, course := range courses {
+	println(replaceNth(str, "alpha", "beta", 3))
+}
 
-	// 	if strings.Contains(course, "Go") {
-	// 		println("Go is found in", course, "and index is", strings.Index(course, "Go"))
-	// 	}
-	// }
-
-	newString := "Go is a great programming language.Go for it!"
-
-	// println(strings.HasPrefix(newString, "Go"))
-	// println(strings.HasSuffix(newString, "Python"))
-	// println(strings.HasSuffix(newString, "!"))
-	// println(strings.Count(newString, "Go"))
-	// println(strings.Count(newString, "Python"))
-	// println(strings.Index(newString, "Python"))
-
-	// newString = strings.Replace(newString, "Go", "Golang", -1)
-	newString = strings.ReplaceAll(newString, "Go", "Golang")
-
-	println(newString)
-
-	if "A" > "B" {
-		println("A is greater than B")
-	} else {
-		println("B is greater than A")
+func replaceNth(s, old, new string, n int) string {
+	i := 0
+	for j := 1; j <= n; j++ {
+		x := strings.Index(s[i:], old)
+		if x < 0 {
+			break
+		}
+		//found it
+		i += x
+		if j == n {
+			s = s[:i] + new + s[i+len(old):]
+		}
+		i += len(old)
 	}
-
-	badEmail := " me@here.com "
-	badEmail = strings.TrimSpace(badEmail)
-
-	fmt.Printf("=%s=", badEmail)
+	return s
 }
