@@ -50,14 +50,17 @@ func main() {
 		}
 		i, _ := strconv.Atoi(string(char))
 
-		t := fmt.Sprintf("You choose %s", coffees[i])
-		fmt.Println(t)
+		// _, ok := coffees[i]
+		// if ok {
 
-		// if key != 0 {
-		// 	fmt.Println("You pressed", char, key)
-		// } else {
-		// 	fmt.Println("You pressed", char)
+		// 	t := fmt.Sprintf("You choose %s", coffees[i])
+		// 	fmt.Println(t)
 		// }
+
+		if _, ok := coffees[i]; ok {
+			t := fmt.Sprintf("You choose %s", coffees[i])
+			fmt.Println(t)
+		}
 
 		if key == keyboard.KeyEsc {
 			fmt.Printf("Program exiting...")
